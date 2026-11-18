@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>السيرفر الأخير</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* A dark hall where only some tiles still glow: black world, cold white tile-light, red for the admin. Chest numbers are the motif. */
+:root{
+  --bg:#06070a;
+  --panel:#0f1117;
+  --line:#1c202b;
+  --ink:#ecebe6;
+  --muted:#8b91a0;
+  --glow:#e9f1ff;
+  --red:#ff3b3b;
+  --alive:#3fd17a;
+  --gold:#e3ad45;
+  --display:'Lalezar','Readex Pro',system-ui,sans-serif;
+  --body:'Readex Pro','Segoe UI',Tahoma,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.7}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+
+nav{position:sticky;top:0;z-index:10;background:rgba(6,7,10,.84);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0;flex-wrap:wrap}
+.logo{font-family:var(--display);font-size:26px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:12px;height:12px;background:var(--glow);box-shadow:0 0 14px var(--glow);border-radius:2px}
+nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{text-decoration:none;color:var(--muted);font-size:15px}
+nav ul a:hover{color:var(--ink)}
+
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to left,rgba(6,7,10,.96) 0%,rgba(6,7,10,.6) 48%,rgba(6,7,10,.1) 100%),linear-gradient(to top,var(--bg) 0%,transparent 45%)}
+.hero .wrap{position:relative;z-index:1;padding:96px 0 76px;display:grid;grid-template-columns:1.3fr .7fr;gap:32px;align-items:end}
+.eyebrow{color:var(--red);font-weight:600;font-size:14px;margin-bottom:10px}
+.hero h1{font-size:clamp(64px,11vw,132px);text-shadow:0 0 40px rgba(233,241,255,.18)}
+.hero h1 span{display:block;font-family:var(--body);font-weight:600;font-size:clamp(14px,1.6vw,18px);letter-spacing:.42em;color:var(--muted);margin-top:6px;direction:ltr;text-align:right}
+.tagline{font-size:clamp(18px,2.2vw,24px);margin:22px 0 28px;max-width:32ch}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;border-radius:6px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid transparent}
+.btn.primary{background:var(--red);color:#fff}
+.btn.primary:hover{background:#ff5a5a}
+.btn.ghost{border-color:#373d4c;background:rgba(15,17,23,.6)}
+.btn.ghost:hover{border-color:#5a6275}
+.counter{justify-self:start;text-align:center;border:1px solid #3a1414;background:rgba(18,5,5,.72);padding:18px 26px;border-radius:8px}
+.counter b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(72px,9vw,112px);line-height:1;color:#ffd6d6;text-shadow:0 0 18px var(--red),0 0 42px rgba(255,59,59,.55);font-variant-numeric:tabular-nums}
+.counter small{color:#d79a9a;font-size:14px}
+
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(36px,5vw,52px)}
+.sec-head p{margin:0;color:var(--muted)}
+
+.feature{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center}
+.feature figure{margin:0;position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.feature figure img{aspect-ratio:16/9;object-fit:cover;width:100%}
+.badge{position:absolute;top:14px;right:14px;background:var(--red);color:#fff;font-weight:600;font-size:13px;padding:4px 10px;border-radius:4px}
+.feature h3{font-size:clamp(34px,4vw,46px);margin:6px 0 14px}
+.feature p{margin:0 0 14px;max-width:58ch;color:#cfcdc6}
+.meta{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:14px;margin:18px 0 24px}
+
+.eps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.ep{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:6px;min-height:140px}
+.ep a{text-decoration:none;display:contents}
+.ep .n{font-family:var(--display);font-size:42px;line-height:1;color:#272c39;font-variant-numeric:tabular-nums}
+.ep h3{font-size:24px}
+.ep .game{color:var(--muted);font-size:14px}
+.ep .st{margin-top:auto;font-size:13px;font-weight:600;color:var(--muted)}
+.ep.out{border-color:#4a1818;background:linear-gradient(160deg,#1a0909,var(--panel) 60%)}
+.ep.out .n,.ep.out .st{color:var(--red)}
+.ep.next{border-color:#2c3446}
+.ep.next .n{color:#8b95ad}
+.ep.locked h3{color:#5e6472}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filters button{font:inherit;font-size:14px;font-weight:600;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer}
+.filters button[aria-pressed="true"]{color:var(--ink);border-color:#596178;background:#181c26}
+.filters b{font-weight:600;color:var(--ink);margin-inline-start:6px;font-variant-numeric:tabular-nums}
+
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.card .pic{position:relative;aspect-ratio:1/1;background:radial-gradient(circle at 50% 70%,#1f2533,#0b0d12 70%)}
+.card .pic img{width:100%;height:100%;object-fit:cover}
+.card .q{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-size:92px;color:#2a3040}
+.tag{position:absolute;bottom:10px;left:10px;background:#f1efe9;color:#111;font-family:var(--display);font-size:20px;line-height:1;padding:5px 8px 3px;border-radius:2px;font-variant-numeric:tabular-nums}
+.status{position:absolute;top:10px;right:10px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;display:flex;align-items:center;gap:6px}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-alive .status{background:rgba(10,40,22,.85);color:var(--alive);border:1px solid #1f5a37}
+.s-dead .status{background:rgba(60,8,8,.9);color:#ff8a8a;border:1px solid #7a1f1f}
+.s-dead .pic img{filter:grayscale(1) brightness(.55)}
+.s-dead .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(to top left,transparent 48.5%,rgba(255,59,59,.85) 49.5%,rgba(255,59,59,.85) 50.5%,transparent 51.5%)}
+.s-dead h3{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.s-unseen .status{background:rgba(20,22,30,.9);color:var(--muted);border:1px solid #2c3140}
+.s-unseen .tag{background:#3a3f4c;color:#c9ccd4}
+.s-next .status{background:rgba(18,26,48,.9);color:#9fb7ff;border:1px solid #2d3d6b}
+.card .txt{padding:12px 14px 14px}
+.card h3{font-size:24px}
+.card .user{font-size:12px;color:#5d6474;direction:ltr;text-align:right;margin:0 0 6px}
+.card p{margin:0;font-size:14px;color:#c2c0b9;line-height:1.55}
+.card .fate{margin-top:8px;font-size:12px;color:var(--muted)}
+.card.admin .pic{background:radial-gradient(circle at 50% 60%,#2a0d0d,#0a0606 70%)}
+.card.admin .q{color:var(--red);text-shadow:0 0 24px rgba(255,59,59,.5)}
+.card.admin .tag{background:var(--red);color:#fff}
+
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.gallery figure{margin:0;border-radius:8px;overflow:hidden;border:1px solid var(--line);position:relative;grid-column:span 2}
+.gallery figure.big{grid-column:span 4;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9}
+.gallery figcaption{position:absolute;bottom:0;inset-inline:0;padding:22px 14px 10px;font-size:14px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent)}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.about p{margin:0 0 14px;max-width:60ch;color:#cfcdc6}
+.credits{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.credits li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.credits span{color:var(--muted)}
+.credits b{font-weight:600}
+.rules{counter-reset:r;list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.rules li{counter-increment:r;display:flex;gap:12px;align-items:baseline}
+.rules li::before{content:counter(r);font-family:var(--display);color:var(--red);font-size:22px;min-width:18px}
+
+footer{padding:36px 0 48px;color:#5d6474;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:1fr;padding:64px 0 48px}
+  .counter{justify-self:stretch}
+  .feature,.about{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery figure,.gallery figure.big{grid-column:span 2;grid-row:auto}
+}
+</style>
+</head>
+<body>
+
+<nav aria-label="القايمة الرئيسية">
+  <div class="wrap">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>السيرفر الأخير</a>
+    <ul>
+      <li><a href="#ep1">الحلقة الأولى</a></li>
+      <li><a href="#episodes">الحلقات</a></li>
+      <li><a href="#cast">اللاعبين</a></li>
+      <li><a href="#stills">صور</a></li>
+      <li><a href="#about">عن المسلسل</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img src="img/s_admin.jpg" alt="الأدمن بالتاج واقف في الضلمة جوه إطار منور">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">مسلسل أنيميشن بستايل روبلوكس · 12 حلقة</div>
+      <h1>السيرفر الأخير<span>THE LAST SERVER</span></h1>
+      <p class="tagline">100 لاعب صحيوا في سيرفر غريب. 12 لعبة، وواحد بس هيخرج ومعاه مليار روبكس.</p>
+      <div class="btns">
+        <a class="btn primary" id="hero-watch" href="#ep1">▶ الحلقة الأولى</a>
+        <a class="btn ghost" href="#cast">مين لسه عايش؟</a>
+      </div>
+    </div>
+    <div class="counter" aria-label="عدد اللاعبين اللي لسه في السيرفر">
+      <b id="alive">100</b>
+      <small>لاعب لسه في السيرفر</small>
+    </div>
+  </div>
+</header>
+
+<section id="ep1">
+  <div class="wrap feature">
+    <figure>
+      <img src="img/s_067.jpg" alt="اللاعب 067 واقف على البلاطة الأخيرة في الضلمة">
+      <span class="badge">متاحة دلوقتي</span>
+    </figure>
+    <div>
+      <div class="eyebrow">الحلقة 1</div>
+      <h3>آخر نور</h3>
+      <p>VEX بيخسر للمرة العاشرة، وبتجيله رسالة: "عايز مليار روبكس؟ ادخل السيرفر الساعة تلاتة الفجر… لوحدك". بيصحى في عنبر فيه 100 لاعب بلبس أبيض وأرقام على صدرهم، وجنبه صحابه.</p>
+      <p>اللعبة الأولى "آخر نور": قاعة ضلمة أرضيتها بلاط. لما العد يخلص النور بيطفي، واللي مش واقف على بلاطة منورة بيختفي. وفي الجولة الأخيرة، بلاطة واحدة لكل اتنين…</p>
+      <div class="meta"><span>10 دقايق</span><span>اللعبة: آخر نور</span><span>100 ← 76</span></div>
+      <div class="btns"><a class="btn primary" id="ep1-watch" href="#">▶ شوف الحلقة على يوتيوب</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="episodes">
+  <div class="wrap">
+    <div class="sec-head"><h2>الحلقات</h2><p>كل حلقة لعبة جديدة، ومحدش يعرف اللعبة الجاية.</p></div>
+    <ol class="eps" id="eps"></ol>
+  </div>
+</section>
+
+<section id="cast">
+  <div class="wrap">
+    <div class="sec-head"><h2>اللاعبين</h2><p>كل شخصية هنا أفاتار روبلوكس حقيقي لواحد من صحاب VEX. الحالة بعد الحلقة 1.</p></div>
+    <div class="filters" role="group" aria-label="فلتر حسب الحالة" id="filters"></div>
+    <ul class="cast" id="castlist"></ul>
+  </div>
+</section>
+
+<section id="stills">
+  <div class="wrap">
+    <div class="sec-head"><h2>من الحلقة الأولى</h2></div>
+    <div class="gallery">
+      <figure class="big"><img src="img/s_moh.jpg" alt="موح مصدوم ومكسور بعد ما 067 وقع"><figcaption>موح، رقم 056، بعد الجولة الأخيرة</figcaption></figure>
+      <figure><img src="img/s_game.jpg" alt="لاعبين واقفين على بلاط منور فوق فراغ أسود"><figcaption>آخر نور</figcaption></figure>
+      <figure><img src="img/s_76.jpg" alt="عداد أحمر مكتوب عليه 76"><figcaption>76 لاعب فاضلين</figcaption></figure>
+      <figure><img src="img/s_room.jpg" alt="VEX في أوضته قدام الشاشة"><figcaption>قبل السيرفر</figcaption></figure>
+      <figure><img src="img/s_screen.jpg" alt="شاشة مكتوب عليها PLAYER 0 والحالة يعمل لدينا"><figcaption>"يعمل لدينا"…</figcaption></figure>
+      <figure><img src="img/s_067.jpg" alt="اللاعب 067"><figcaption>اللاعب 067</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div>
+      <div class="sec-head" style="margin-bottom:16px"><h2>عن المسلسل</h2></div>
+      <p>السيرفر الأخير مسلسل أنيميشن 3D بستايل روبلوكس، مستوحى من مسلسلات ألعاب البقاء، بس بألعاب جديدة متعملة مخصوص للسيرفر.</p>
+      <p>الأبطال مش شخصيات متألفة. دول صحاب VEX، بأفاتاراتهم الحقيقية من روبلوكس.</p>
+      <ol class="rules" aria-label="قواعد السيرفر">
+        <li>12 لعبة، ومحدش يعرف اللعبة الجاية.</li>
+        <li>اللي يخسر يتمسح من السيرفر.</li>
+        <li>واحد بس هيخرج بالمليار.</li>
+        <li>وواحد منكم… شغال مع الأدمن.</li>
+      </ol>
+    </div>
+    <ul class="credits">
+      <li><span>فكرة وإنتاج</span><b>VEX</b></li>
+      <li><span>بطولة</span><b>23 لاعب حقيقي</b></li>
+      <li><span>أنيميشن 3D</span><b>Blender</b></li>
+      <li><span>عدد الحلقات</span><b>12</b></li>
+      <li><span>العرض</span><b><a id="yt-credit" href="#">يوتيوب</a></b></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 السيرفر الأخير · إنتاج VEX</span>
+    <span>مسلسل fan-made بستايل روبلوكس، ومش تابع لـRoblox Corporation.</span>
+  </div>
+</footer>
+
+<script>
+// ===== لما حلقة جديدة تنزل: حط لينكها هنا، وحدّث حالة الشخصيات وعدد اللاعبين =====
+const PLAYLIST = 'https://www.youtube.com/watch?v=AF92aIj91Tc';
+const EPISODE_LINKS = { 1: 'https://www.youtube.com/watch?v=AF92aIj91Tc' };
+const PLAYERS_LEFT = 76;
+// ============================================================================
+
+const episodes = [
+  ['آخر نور','بلاط بينور ويطفي'],
+  ['الجرس','متاهة حيطانها بتتحرك'],
+];
+const TOTAL = 12;
+
+// [الاسم, اليوزر, الرقم, الصورة, الوصف, الحالة, ملاحظة]
+// الحالة: alive عايش · dead اتمسح · unseen لسه مظهرش · next يظهر الحلقة الجاية
+const cast = [
+  ['VEX','pvpman33224','033','c_vex','لاعب PvP مبيعرفش يخسر… لحد ما دخل السيرفر.','alive','عدّى اللعبة 1'],
+  ['عمر','Itsrealzolo','034','c_omar','أعز صاحب لـVEX، وبيهزر عشان يخبي خوفه.','alive','VEX شدّه على آخر لحظة'],
+  ['موح','minapk56','056','c_moh','الجوكر بتاع الجروب… لحد ما 067 ضحّى عشانه.','alive','عايش بفضل 067'],
+  ['ترو','RoyalShoot1234','078','c_true','بارد. "اللي هيعيّط على كل واحد يموت… مش هيكمّل".','alive','كشف نمط البلاط'],
+  ['فويد','Ez_gaming1285','012','c_void','الأصغر، وبيقول EZ على كل حاجة.','alive','موح سحبه في النطة'],
+  ['ليث','ibraheemyoutuber','019','c_laith','أول واحد فهم إن ده مش إيفنت.','alive','عدّى اللعبة 1'],
+  ['أسامة','osamaGXDgaming_1','044','','مصري عايش في السعودية، والمنظّم بتاع الشلة.','alive','هو اللي لقى شاشة الأدمن'],
+  ['لايتنينج','mandola41','041','','أسرع واحد في السيرفر… وواثق زيادة عن اللزوم.','next','يظهر في الحلقة 2'],
+  ['كارما','karmaa63','063','','محدش يعرف هي بتفكر في إيه.','unseen',''],
+  ['حازم','hazem2013ppk','091','','هادي وبيراقب كل حاجة.','unseen',''],
+  ['آيتن','Ayten4571','045','','بتشوف اللي محدش شايفه.','unseen',''],
+  ['ريكسا','Rexha649','099','','منافس VEX الأول في الـPvP.','unseen',''],
+  ['سنافيرو','sasa1refooo2020','021','','خوّاف… لحد ما يتحط في الموقف.','unseen',''],
+  ['تايجر','3AW35','050','','مبيتكلمش.','unseen',''],
+  ['جمال','Gamal12a5','013','','قوي وقليل الكلام.','unseen',''],
+  ['حمزة','HamzaFiras2','088','','عنده خطة لكل لعبة.','unseen',''],
+  ['علي','alimohamedaliaaa','007','','بيساعد أي حد، حتى لو ميعرفوش.','unseen',''],
+  ['إحسان','ehsan_781','064','','بتصدّق أي حد.','unseen',''],
+  ['حيدر','HaiderFive_XD','005','','القائد الهادي.','unseen',''],
+  ['ماجد','majed_gamer100','100','','تراي هارد، بيلعب عشان يكسب وبس.','unseen',''],
+  ['سند','sanad234d','023','','اسم على مسمى.','unseen',''],
+  ['تيوب','TubeGaming1221','072','','أكتر واحد محظوظ في السيرفر.','unseen',''],
+  ['يامن','itoshi_yamen12','017','','فان أنمي، وبيتكلم زيهم.','unseen',''],
+  ['اللاعب 067','NPC','067','c_p067','راجل طيب، إدّى موح آخر حتة عيش… وبعدين إدّاه مكانه.','dead','اتمسح في اللعبة 1'],
+];
+const LABEL = {alive:'عايش', dead:'اتمسح', unseen:'لسه مظهرش', next:'الحلقة الجاية'};
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// episodes
+let epHtml = '';
+for (let n = 1; n <= TOTAL; n++) {
+  const e = episodes[n-1], link = EPISODE_LINKS[n];
+  const cls = link ? 'out' : e ? 'next' : 'locked';
+  const title = e ? e[0] : '؟؟؟', game = e ? e[1] : 'مقفولة';
+  const st = link ? '▶ شوفها على يوتيوب' : e ? 'قريبًا' : 'مقفولة';
+  const inner = `<span class="n">${String(n).padStart(2,'0')}</span><h3>${esc(title)}</h3><span class="game">${esc(game)}</span><span class="st">${st}</span>`;
+  epHtml += `<li class="ep ${cls}">${link ? `<a href="${esc(link)}">${inner}</a>` : inner}</li>`;
+}
+document.getElementById('eps').innerHTML = epHtml;
+
+// cast
+function card([name,user,num,img,line,state,note]){
+  const pic = img ? `<img src="img/${img}.jpg" alt="${esc(name)}، رقم ${num}" loading="lazy">` : `<span class="q" aria-hidden="true">؟</span>`;
+  return `<li class="card s-${state}" data-state="${state}"><div class="pic">${pic}<span class="status">${LABEL[state]}</span><span class="tag">${num}</span></div>
+    <div class="txt"><h3>${esc(name)}</h3><p class="user">@${esc(user)}</p><p>${esc(line)}</p>${note ? `<p class="fate">${esc(note)}</p>` : ''}</div></li>`;
+}
+const admin = `<li class="card admin" data-state="admin"><div class="pic"><span class="q" aria-hidden="true">؟</span><span class="tag">000</span></div>
+  <div class="txt"><h3>الأدمن</h3><p class="user">@??????</p><p>محدش شاف وشه. وواحد من اللاعبين شغال معاه.</p></div></li>`;
+const list = document.getElementById('castlist');
+let filter = 'all';
+function render(){
+  list.innerHTML = cast.filter(c => filter === 'all' || c[5] === filter).map(card).join('') + (filter === 'all' ? admin : '');
+}
+const counts = cast.reduce((m,c) => (m[c[5]] = (m[c[5]]||0) + 1, m), {});
+const fdefs = [['all','الكل',cast.length],['alive','عايش',counts.alive||0],['dead','اتمسح',counts.dead||0],['unseen','لسه مظهرش',(counts.unseen||0)+(counts.next||0)]];
+const fbox = document.getElementById('filters');
+fbox.innerHTML = fdefs.map(([k,l,n]) => `<button type="button" data-f="${k}" aria-pressed="${k==='all'}">${l}<b>${n}</b></button>`).join('');
+fbox.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filter = b.dataset.f === 'unseen' ? 'unseen' : b.dataset.f;
+  fbox.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  if (b.dataset.f === 'unseen') {
+    list.innerHTML = cast.filter(c => c[5] === 'unseen' || c[5] === 'next').map(card).join('');
+  } else render();
+});
+render();
+
+// links
+const ep1 = document.getElementById('ep1-watch');
+ep1.href = EPISODE_LINKS[1];
+document.getElementById('hero-watch').href = EPISODE_LINKS[1];
+document.getElementById('yt-credit').href = PLAYLIST;
+
+// counter: drops from 100 to the players left
+const alive = document.getElementById('alive');
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { alive.textContent = PLAYERS_LEFT; }
+else {
+  let v = 100;
+  const tick = () => { if (v > PLAYERS_LEFT) { v = Math.max(PLAYERS_LEFT, v - (Math.random() < .5 ? 1 : 2)); alive.textContent = v; setTimeout(tick, 70 + Math.random()*140); } };
+  setTimeout(tick, 1200);
+}
+</script>
+</body>
+</html>
