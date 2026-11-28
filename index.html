@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>السيرفر الأخير | THE LAST SERVER</title>
+<meta name="description" content="مسلسل أنيميشن 3D بستايل روبلوكس من 12 حلقة — 100 لاعب، 12 لعبة، وواحد بس هيخرج بالمليار روبكس. الحلقة 3: غرف النجاة متاحة الآن.">
+<meta property="og:title" content="السيرفر الأخير | الحلقة 3: غرف النجاة">
+<meta property="og:description" content="58 لاعبًا، 5 غرف نجاة تتسع لـ 35 فقط… والعد التنازلي بدأ.">
+<meta property="og:image" content="img/ep03_thumb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Readex+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06070a;
+  --panel:#0e1017;
+  --panel2:#131722;
+  --line:#1c212e;
+  --ink:#ecebe6;
+  --muted:#8d94a5;
+  --glow:#e9f1ff;
+  --red:#ff3b3b;
+  --red-dim:#4a1618;
+  --orange:#ff7a45;
+  --alive:#3fd17a;
+  --gold:#e3ad45;
+  --cyan:#5fd6ff;
+  --display:'Lalezar','Readex Pro',system-ui,sans-serif;
+  --body:'Readex Pro','Segoe UI',Tahoma,system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+h1,h2,h3,h4{font-family:var(--display);font-weight:400;line-height:1.15;margin:0;text-wrap:balance}
+
+/* Top Nav */
+nav{position:sticky;top:0;z-index:30;background:rgba(6,7,10,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 0;flex-wrap:wrap}
+.logo{font-family:var(--display);font-size:26px;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo i{width:12px;height:12px;background:var(--red);box-shadow:0 0 14px var(--red);border-radius:2px;display:inline-block}
+nav ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;flex-wrap:wrap;align-items:center}
+nav ul a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:400;transition:color .2s}
+nav ul a:hover{color:var(--ink)}
+.nav-pill{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:999px;background:rgba(255,59,59,.12);border:1px solid rgba(255,59,59,.35);color:#ffb3b3;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.nav-pill b{color:var(--red)}
+.dot-live{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.52;transform:scale(1.03);filter:contrast(1.06) saturate(1.05)}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 22% 45%,rgba(255,59,59,.14),transparent 45%),linear-gradient(to left,rgba(6,7,10,.96) 0%,rgba(6,7,10,.68) 48%,rgba(6,7,10,.22) 100%),linear-gradient(to top,var(--bg) 0%,transparent 48%)}
+.hero .wrap{position:relative;z-index:2;padding:96px 0 78px;display:grid;grid-template-columns:1.35fr .65fr;gap:32px;align-items:end}
+.eyebrow{color:var(--red);font-weight:600;font-size:14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.eyebrow-tag{background:rgba(255,59,59,.14);border:1px solid rgba(255,59,59,.35);padding:2px 9px;border-radius:4px;font-size:12px}
+.hero h1{font-size:clamp(62px,10.5vw,126px);text-shadow:0 0 42px rgba(233,241,255,.16)}
+.hero h1 span{display:block;font-family:var(--body);font-weight:600;font-size:clamp(13px,1.5vw,17px);letter-spacing:.42em;color:var(--muted);margin-top:6px;direction:ltr;text-align:right}
+.tagline{font-size:clamp(18px,2.1vw,23px);margin:20px 0 28px;max-width:34ch;color:#e4e3de}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 22px;border-radius:6px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:transform .16s ease,background .2s ease,border-color .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--red);color:#fff;box-shadow:0 8px 26px rgba(255,59,59,.28)}
+.btn.primary:hover{background:#ff5454}
+.btn.ghost{border-color:#343b4c;background:rgba(15,17,23,.72);color:var(--ink)}
+.btn.ghost:hover{border-color:#646e86;background:rgba(24,28,38,.88)}
+
+/* Live Elimination Counter */
+.counter{justify-self:start;text-align:center;border:1px solid #4d191b;background:linear-gradient(180deg,rgba(24,7,8,.86),rgba(10,7,9,.9));padding:20px 28px;border-radius:10px;box-shadow:0 18px 48px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,110,110,.15);min-width:210px}
+.counter-top{font-size:12px;color:#d79a9a;font-weight:600;letter-spacing:.03em;margin-bottom:4px}
+.counter b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(74px,9vw,112px);line-height:.96;color:#ffe1e1;text-shadow:0 0 20px var(--red),0 0 46px rgba(255,59,59,.55);font-variant-numeric:tabular-nums}
+.counter small{display:block;color:#d79a9a;font-size:14px;margin-top:4px}
+.counter-trail{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,59,59,.22);display:flex;justify-content:center;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.counter-trail span.cur{color:#ff8f8f;font-weight:700}
+
+/* Sections */
+section{padding:72px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(34px,4.8vw,50px)}
+.sec-head p{margin:0;color:var(--muted);max-width:56ch}
+
+/* Featured Latest Episode */
+.feature{display:grid;grid-template-columns:1.15fr 1fr;gap:36px;align-items:center}
+.feature figure{margin:0;position:relative;border-radius:10px;overflow:hidden;border:1px solid #3c1c20;box-shadow:0 20px 50px rgba(0,0,0,.5);cursor:pointer;group:thumb}
+.feature figure img{aspect-ratio:16/9;object-fit:cover;width:100%;transition:transform .45s ease}
+.feature figure:hover img{transform:scale(1.03)}
+.badge{position:absolute;top:14px;right:14px;background:var(--red);color:#fff;font-weight:700;font-size:12px;padding:5px 11px;border-radius:4px;box-shadow:0 4px 16px rgba(255,59,59,.45)}
+.play-overlay{position:absolute;inset:0;display:grid;place-items:center;background:rgba(6,7,10,.2);transition:background .25s}
+.feature figure:hover .play-overlay{background:rgba(6,7,10,.38)}
+.play-circle{width:68px;height:68px;border-radius:50%;background:rgba(255,59,59,.92);display:grid;place-items:center;color:#fff;font-size:26px;padding-left:4px;box-shadow:0 0 36px rgba(255,59,59,.65);transition:transform .2s}
+.feature figure:hover .play-circle{transform:scale(1.08)}
+.feature h3{font-size:clamp(34px,4.2vw,48px);margin:6px 0 14px}
+.feature p{margin:0 0 14px;max-width:58ch;color:#d3d1ca}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 24px}
+.meta span{font-size:13px;font-weight:600;color:#d6d4cd;background:var(--panel);border:1px solid var(--line);padding:5px 11px;border-radius:6px;font-variant-numeric:tabular-nums}
+.meta span.hot{border-color:#532024;color:#ff9e9e;background:#180b0d}
+.prev-eps{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.prev-eps a{text-decoration:none;color:var(--ink);padding:5px 11px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+.prev-eps a:hover{border-color:#4d566c;background:var(--panel2)}
+
+/* Game 3 Tactical Rooms Breakdown */
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.room-card{background:linear-gradient(180deg,#121621,#0b0d13);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.room-card::before{content:"";position:absolute;top:0;inset-inline:0;height:3px;background:linear-gradient(90deg,transparent,var(--orange),transparent);opacity:.85}
+.room-card.purged{background:linear-gradient(180deg,#1b0a0c,#0e090b);border-color:#4b191d}
+.room-card.purged::before{background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:1}
+.room-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.room-name{font-family:var(--display);font-size:24px;letter-spacing:.02em}
+.room-cap{font-size:12px;font-weight:700;padding:3px 9px;border-radius:4px;background:rgba(63,209,122,.14);color:var(--alive);border:1px solid rgba(63,209,122,.32);font-variant-numeric:tabular-nums}
+.room-card.purged .room-cap{background:rgba(255,59,59,.15);color:#ff9494;border-color:rgba(255,59,59,.35)}
+.room-desc{font-size:13px;color:var(--muted);margin:0}
+.room-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:#181d2b;border:1px solid #262e42;font-size:12px;color:#e8e6e1}
+.chip b{color:var(--gold);font-weight:600;font-variant-numeric:tabular-nums}
+.room-card.purged .chip{background:rgba(255,59,59,.1);border-color:rgba(255,59,59,.28);color:#ffd2d2}
+.room-card.purged .chip b{color:var(--red)}
+.room-note{font-size:12px;color:#9ea5b8;border-top:1px dashed #242a3a;padding-top:8px;margin-top:2px}
+.spy-banner{margin-top:18px;background:linear-gradient(135deg,#18090c,#0c0d13 60%);border:1px solid #4c191e;border-radius:10px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.spy-banner h3{font-size:26px;color:#ffb4b4}
+.spy-banner p{margin:4px 0 0;color:#c9c7c0;font-size:14px}
+
+/* Episodes Grid */
+.eps{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.ep{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px;min-height:152px;transition:transform .18s ease,border-color .18s ease}
+.ep:hover{transform:translateY(-2px)}
+.ep a{text-decoration:none;display:contents}
+.ep .n{font-family:var(--display);font-size:42px;line-height:1;color:#272c39;font-variant-numeric:tabular-nums}
+.ep h3{font-size:24px}
+.ep .game{color:var(--muted);font-size:14px}
+.ep .ep-count{font-size:12px;color:#7e879c;font-variant-numeric:tabular-nums}
+.ep .st{margin-top:auto;font-size:13px;font-weight:600;color:var(--muted);padding-top:8px}
+.ep.out{border-color:#2a3144;background:linear-gradient(160deg,#121724,var(--panel) 65%)}
+.ep.out .n{color:#8c98b5}
+.ep.out .st{color:var(--glow)}
+.ep.latest{border-color:#691f24;background:linear-gradient(160deg,#240a0d,var(--panel) 62%);box-shadow:0 12px 34px rgba(255,59,59,.14)}
+.ep.latest .n,.ep.latest .st{color:var(--red)}
+.ep.next{border-color:#3a311e;background:linear-gradient(160deg,#16130b,var(--panel) 65%)}
+.ep.next .n{color:var(--gold)}
+.ep.next .st{color:#d8b365}
+.ep.locked h3{color:#5e6472}
+
+/* Cast Controls & Cards */
+.cast-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font-size:14px;font-weight:600;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:7px 15px;cursor:pointer;transition:all .16s}
+.filters button:hover{border-color:#444d63;color:var(--ink)}
+.filters button[aria-pressed="true"]{color:#fff;border-color:var(--red);background:rgba(255,59,59,.18)}
+.filters b{font-weight:700;color:#fff;margin-inline-start:8px;padding:1px 7px;border-radius:999px;background:rgba(255,255,255,.12);font-size:12px;font-variant-numeric:tabular-nums}
+.search-box{position:relative;min-width:230px;flex:0 1 280px}
+.search-box input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:8px 16px;color:var(--ink);font:inherit;font-size:14px}
+.search-box input::placeholder{color:#666f84}
+.search-box input:focus{outline:none;border-color:#5a6580}
+
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:14px;list-style:none;margin:0;padding:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s ease}
+.card:hover{transform:translateY(-2px);border-color:#2c3448}
+.card .pic{position:relative;aspect-ratio:1/1;background:radial-gradient(circle at 50% 70%,#1f2533,#0b0d12 70%);overflow:hidden}
+.card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .3s ease}
+.card:hover .pic img{transform:scale(1.04)}
+.card .q{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-size:92px;color:#2a3040}
+.tag{position:absolute;bottom:10px;left:10px;background:#f1efe9;color:#111;font-family:var(--display);font-size:20px;line-height:1;padding:5px 8px 3px;border-radius:3px;font-variant-numeric:tabular-nums}
+.status{position:absolute;top:10px;right:10px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:4px;display:flex;align-items:center;gap:6px;z-index:2}
+.status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.s-alive .status{background:rgba(10,40,22,.88);color:var(--alive);border:1px solid #1f5a37}
+.s-dead .status{background:rgba(60,8,8,.92);color:#ff8a8a;border:1px solid #7a1f1f}
+.s-dead .pic img{filter:grayscale(1) brightness(.52)}
+.s-dead .pic::after{content:"";position:absolute;inset:0;background:linear-gradient(to top left,transparent 48.5%,rgba(255,59,59,.88) 49.5%,rgba(255,59,59,.88) 50.5%,transparent 51.5%);pointer-events:none}
+.s-dead h3{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.s-new{border-color:#262f44}
+.card .txt{padding:12px 14px 14px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:24px}
+.card .user{font-size:12px;color:#626b80;direction:ltr;text-align:right;margin:0 0 6px}
+.card p{margin:0;font-size:13.5px;color:#c5c3bc;line-height:1.55}
+.card .fate{margin-top:auto;padding-top:9px;font-size:12px;color:var(--muted)}
+.s-alive .fate{color:#88b89b}
+.s-dead .fate{color:#d28787}
+.card.admin{border-color:#4d191c}
+.card.admin .pic{background:radial-gradient(circle at 50% 60%,#330e10,#090607 72%)}
+.card.admin .q{color:var(--red);text-shadow:0 0 26px rgba(255,59,59,.58)}
+.card.admin .tag{background:var(--red);color:#fff}
+
+/* Stills Gallery & Lightbox */
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.gallery figure{margin:0;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative;grid-column:span 2;cursor:zoom-in}
+.gallery figure.big{grid-column:span 4;grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/9;transition:transform .35s ease}
+.gallery figure:hover img{transform:scale(1.03)}
+.gallery figcaption{position:absolute;bottom:0;inset-inline:0;padding:24px 14px 10px;font-size:13.5px;background:linear-gradient(to top,rgba(0,0,0,.88),transparent);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gallery figcaption i{font-style:normal;font-size:11px;padding:2px 7px;border-radius:4px;background:rgba(255,59,59,.2);border:1px solid rgba(255,59,59,.4);color:#ffc4c4}
+
+/* About & Credits */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.about p{margin:0 0 14px;max-width:60ch;color:#cfcdc6}
+.credits{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.credits li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.credits span{color:var(--muted)}
+.credits b{font-weight:600}
+.rules{counter-reset:r;list-style:none;padding:0;margin:18px 0 0;display:grid;gap:10px}
+.rules li{counter-increment:r;display:flex;gap:12px;align-items:baseline}
+.rules li::before{content:counter(r);font-family:var(--display);color:var(--red);font-size:22px;min-width:18px}
+
+/* Modals (Video Cinema Player & Image Lightbox) */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(4,5,8,.9);backdrop-filter:blur(8px);display:none;place-items:center;padding:20px}
+.modal.open{display:grid}
+.modal-box{width:min(980px,100%);background:#0b0d13;border:1px solid #2b3244;border-radius:12px;overflow:hidden;box-shadow:0 26px 80px rgba(0,0,0,.78)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.modal-head h3{font-size:24px}
+.modal-close{background:none;border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:4px 12px;cursor:pointer;font-size:14px}
+.modal-close:hover{border-color:var(--red);color:#fff}
+.modal-video{position:relative;aspect-ratio:16/9;background:#000}
+.modal-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.modal-foot{padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.lightbox-img{max-height:78vh;width:100%;object-fit:contain;background:#040508}
+
+footer{padding:36px 0 48px;color:#5d6474;font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:920px){
+  .rooms-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:1fr;padding:64px 0 48px}
+  .counter{justify-self:stretch}
+  .feature,.about,.rooms-grid{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .gallery figure,.gallery figure.big{grid-column:span 2;grid-row:auto}
+}
+</style>
+</head>
+<body>
+
+<nav aria-label="القايمة الرئيسية">
+  <div class="wrap">
+    <a class="logo" href="#top"><i aria-hidden="true"></i>السيرفر الأخير</a>
+    <ul>
+      <li><a href="#latest">الحلقة 3</a></li>
+      <li><a href="#gamereport">غرف النجاة</a></li>
+      <li><a href="#episodes">الحلقات</a></li>
+      <li><a href="#cast">اللاعبين</a></li>
+      <li><a href="#stills">لقطات</a></li>
+      <li><a href="#about">عن المسلسل</a></li>
+    </ul>
+    <span class="nav-pill" title="الناجون بعد الحلقة 3"><span class="dot-live" aria-hidden="true"></span> متبقي <b>35</b> / 100</span>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img class="hero-bg" src="img/s3_wall.jpg" alt="الأدمن قدام جدار اللاعبين المحدّث بعد تصفية غرف النجاة">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">مسلسل أنيميشن 3D بستايل روبلوكس · 12 حلقة <span class="eyebrow-tag">الحلقة 3 متاحة الآن</span></div>
+      <h1>السيرفر الأخير<span>THE LAST SERVER</span></h1>
+      <p class="tagline">100 لاعب صحيوا في سيرفر غريب. 12 لعبة، وواحد بس هيخرج ومعاه مليار روبكس.</p>
+      <div class="btns">
+        <a class="btn primary" id="hero-watch" href="#latest">▶ شاهد الحلقة 3: غرف النجاة</a>
+        <a class="btn ghost" href="#cast">مين لسه عايش؟</a>
+        <a class="btn ghost" href="#gamereport">تقرير الغرف الخمس</a>
+      </div>
+    </div>
+    <div class="counter" aria-label="عدد اللاعبين اللي لسه في السيرفر">
+      <div class="counter-top">الحالة بعد الحلقة 3</div>
+      <b id="alive">100</b>
+      <small>لاعب لسه في السيرفر</small>
+      <div class="counter-trail" aria-hidden="true">
+        <span>100</span> ← <span>76</span> ← <span>58</span> ← <span class="cur">35</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="latest">
+  <div class="wrap feature">
+    <figure id="thumb-play" role="button" tabindex="0" aria-label="تشغيل الحلقة 3 غرف النجاة">
+      <img src="img/ep03_thumb.jpg" alt="غلاف الحلقة التالتة غرف النجاة">
+      <span class="badge">الحلقة الجديدة · ح3</span>
+      <div class="play-overlay"><div class="play-circle" aria-hidden="true">▶</div></div>
+    </figure>
+    <div>
+      <div class="eyebrow">الحلقة 3 · متاحة الآن</div>
+      <h3>غرف النجاة</h3>
+      <p>58 لاعبًا فقط نجوا من المتاهة… لكن الشك بدأ يكسر الثقة داخل العنبر بعد ظهور رسالة الأدمن تحت مخدّة لايتنينج وظهور الوجوه الـ 14 الجدد على المسرح.</p>
+      <p>اللعبة الثالثة: <strong>5 غرف محصّنة</strong> لا تتّسع إلا لـ <strong>35 ناجياً فقط</strong>. الأبواب لن تُفتح بلا بطاقات دخول، السرقة وإغلاق الأبواب في وشوش بعض مسموحان، وفي الآخر… واحد من الناجين اتكشف مع الأدمن.</p>
+      <div class="meta">
+        <span>10:01 دقايق</span>
+        <span>اللعبة: غرف النجاة</span>
+        <span class="hot">58 ← 35 ناجي (-23)</span>
+      </div>
+      <div class="btns">
+        <button class="btn primary" type="button" id="ep3-modal-btn">▶ شغّل الحلقة هنا</button>
+        <a class="btn ghost" id="ep3-watch" href="#" target="_blank" rel="noopener">افتح على يوتيوب ↗</a>
+      </div>
+      <div class="prev-eps">
+        <span>الحلقات السابقة:</span>
+        <a href="#" id="ep1-watch" target="_blank" rel="noopener">الحلقة 1: آخر نور</a>
+        <a href="#" id="ep2-watch" target="_blank" rel="noopener">الحلقة 2: المتاهة</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gamereport">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>تقرير اللعبة 3: غرف النجاة</h2>
+      <p>خمس غرف محصّنة بحد أقصى 7 لاعبين في كل غرفة. اللي فاضل برّا ساعة 0:00… التطهير مسحه من السيرفر.</p>
+    </div>
+    <div class="rooms-grid" id="rooms-grid"></div>
+    <div class="spy-banner">
+      <div>
+        <h3>⚠ تحذير نهاية الحلقة 3: الخاين اتسمع!</h3>
+        <p>فوق جدار الشاشات في الظلمة… صوت مقنّع قال للأدمن: <strong>«كلهم دلوقتي بيشكّوا في بعض… اللعبة الجاية مش هتحتاج مني مجهود.»</strong> ولايتنينج (041) سمعه!</p>
+      </div>
+      <a class="btn ghost" href="#episodes">الحلقة 4 قريبًا ←</a>
+    </div>
+  </div>
+</section>
+
+<section id="episodes">
+  <div class="wrap">
+    <div class="sec-head"><h2>الحلقات</h2><p>كل حلقة لعبة جديدة، ومحدش يعرف مين هيكمّل للحلقة الجاية.</p></div>
+    <ol class="eps" id="eps"></ol>
+  </div>
+</section>
+
+<section id="cast">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>اللاعبين (26 لاعب + 067)</h2>
+      <p>كل الأبطال ظاهرين دلوقتي بأفاتارات روبلوكس الحقيقية وصورهم الجديدة. الحالة محدثة بعد الحلقة 3.</p>
+    </div>
+    <div class="cast-bar">
+      <div class="filters" role="group" aria-label="فلتر حسب الحالة" id="filters"></div>
+      <div class="search-box">
+        <input id="cast-search" type="search" placeholder="ابحث بالاسم أو الرقم (مثلاً: ريكسا أو 033)..." aria-label="ابحث عن لاعب">
+      </div>
+    </div>
+    <ul class="cast" id="castlist"></ul>
+  </div>
+</section>
+
+<section id="stills">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>لقطات من المسلسل</h2>
+      <p>اضغط على أي صورة للتكبير — لقطات حقيقية من ريندر الحلقات 1، 2، و3.</p>
+    </div>
+    <div class="filters" role="group" aria-label="فلتر الصور حسب الحلقة" id="gallery-filters"></div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div>
+      <div class="sec-head" style="margin-bottom:16px"><h2>عن المسلسل</h2></div>
+      <p>السيرفر الأخير مسلسل أنيميشن 3D بستايل روبلوكس، مستوحى من مسلسلات ألعاب البقاء، بألعاب أصلية متصممة مخصوص للسيرفر وصراعات نفسية وخيانات حقيقية.</p>
+      <p>الأبطال الـ 26 مش شخصيات متألفة؛ دول صحاب VEX بأفاتاراتهم الحقيقية من روبلوكس وأصواتهم بلهجاتهم الطبيعية.</p>
+      <ol class="rules" aria-label="قواعد السيرفر">
+        <li>12 لعبة، ومحدش يعرف اللعبة الجاية.</li>
+        <li>اللي يخسر يتمسح من السيرفر.</li>
+        <li>واحد بس هيخرج بالمليار.</li>
+        <li>وواحد منكم… شغال مع الأدمن.</li>
+      </ol>
+    </div>
+    <ul class="credits">
+      <li><span>فكرة وإخراج</span><b>VEX</b></li>
+      <li><span>بطولة</span><b>26 لاعب حقيقي (+067)</b></li>
+      <li><span>محرك الريندر</span><b>Blender 5.3 · Eevee Motion Blur</b></li>
+      <li><span>عدد الحلقات</span><b>12 (صدر 3 حلقات)</b></li>
+      <li><span>القناة الرسمية</span><b><a id="yt-credit" href="#" target="_blank" rel="noopener">Midnight Tales POV ↗</a></b></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 السيرفر الأخير · إنتاج VEX</span>
+    <span>مسلسل fan-made بستايل روبلوكس، ومش تابع لـ Roblox Corporation.</span>
+  </div>
+</footer>
+
+<!-- Video Modal -->
+<div class="modal" id="video-modal" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="video-modal-title">الحلقة 3: غرف النجاة</h3>
+      <button type="button" class="modal-close" id="video-modal-close">إغلاق ✕</button>
+    </div>
+    <div class="modal-video" id="video-modal-body"></div>
+    <div class="modal-foot">
+      <span id="video-modal-note">بث مباشر من يوتيوب بجودة 1080p</span>
+      <a class="btn ghost" id="video-modal-ext" href="#" target="_blank" rel="noopener" style="padding:6px 12px;font-size:13px">مشاهدة على يوتيوب ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- Image Lightbox -->
+<div class="modal" id="img-modal" role="dialog" aria-modal="true" aria-labelledby="img-modal-title">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="img-modal-title">لقطة</h3>
+      <button type="button" class="modal-close" id="img-modal-close">إغلاق ✕</button>
+    </div>
+    <img class="lightbox-img" id="img-modal-el" src="" alt="">
+  </div>
+</div>
+
+<script>
+// ===== بيانات المسلسل المحدثة حتى الحلقة 3 =====
+const EPISODE_LINKS = {
+  1: 'https://youtu.be/AF92aIj91Tc',
+  2: 'https://youtu.be/EOU_50Y8W14',
+  3: 'https://youtu.be/fJ7VmRDe5lw',
+};
+const EPISODE_IDS = { 1: 'AF92aIj91Tc', 2: 'EOU_50Y8W14', 3: 'fJ7VmRDe5lw' };
+const PLAYERS_LEFT = 35;
+
+const episodes = [
+  ['آخر نور', 'بلاط بينور ويطفي فوق الفراغ', '100 ← 76 ناجي'],
+  ['المتاهة', 'حيطان بتتحرك مع كل ضربة جرس', '76 ← 58 ناجي'],
+  ['غرف النجاة', '5 غرف ببطاقات دخول لـ 35 فقط', '58 ← 35 ناجي'],
+  ['الشك القاتل', 'المطاردة وراء الخاين الحقيقي', 'قريبًا…'],
+];
+const TOTAL = 12;
+
+const roomsEp3 = [
+  {
+    name: 'الغرفة 1 (أقفلت أوّل غرفة)',
+    cap: '7 / 7 ناجيين',
+    desc: 'أسرع فريق جمع الكروت وسابق الباقيين، وحصل فيها زقّ وخطف كروت.',
+    members: [['تيوب','072'],['أسامة','044'],['سند','023'],['تايجر','050'],['جمال','013'],['حسن','027'],['يامن','017']],
+    note: 'الباب اتقفل بدري عن باقي الغرف',
+  },
+  {
+    name: 'الغرفة 2 (إنقاذ اللحظة الأخيرة)',
+    cap: '7 / 7 ناجيين',
+    desc: 'VEX شدّ ريكسا المصابة في آخر ثانية قبل ما الأبواب تتقفل عند 0:00.',
+    members: [['VEX','033'],['ريكسا','099'],['لايتنينج','041'],['عمر E','061'],['عمر G','093'],['+ 2 لاعبين','NPC']],
+    note: 'حوار الشك بعد اللعبة بدأ من هنا',
+  },
+  {
+    name: 'الغرفة 3',
+    cap: '7 / 7 ناجيين',
+    desc: 'موح وفويد دخلوا مع المجموعة، لكن الباب اتقفل والغرفة اكتملت قدام كارما وآيتن.',
+    members: [['موح','056'],['فويد','012'],['+ 5 لاعبين','NPC']],
+    note: 'آيتن لمحت الجاسوس قبل التطهير',
+  },
+  {
+    name: 'الغرفة 4 (خيانة ماجد)',
+    cap: '7 / 7 ناجيين',
+    desc: 'سنافيرو اتكعبل؛ ماجد سبقه جوه الغرفة وقفل الباب في وشه قدام حيدر.',
+    members: [['ماجد','100'],['حيدر','005'],['+ 5 لاعبين','NPC']],
+    note: '«حياتي أهم… وده نظام اللعبة!»',
+  },
+  {
+    name: 'الغرفة 5 (خيانة حازم)',
+    cap: '7 / 7 ناجيين',
+    desc: 'حازم زقّ علي برا في آخر لحظة وقفل الباب وسط صدمة ليث وترو وعمر.',
+    members: [['حازم','091'],['ليث','019'],['ترو','078'],['عمر','034'],['+ 3 لاعبين','NPC']],
+    note: 'ليث بعد النجاة: «المعركة الجاية جوا العنبر»',
+  },
+  {
+    name: 'الخارج — التطهير الأحمر (0:00)',
+    cap: 'اتمسحوا (5 أبطال + 18 NPC)',
+    purged: true,
+    desc: 'أشعة التطهير الحمراء نزلت على الساحة ومسحت كل اللي مالحقش يلاقي غرفة.',
+    members: [['سنافيرو','021'],['علي','007'],['إحسان','064'],['كارما','063'],['آيتن','045']],
+    note: 'إجمالي ضحايا اللعبة الثالثة: 23 لاعب',
+  },
+];
+
+// [الاسم, اليوزر, الرقم, الصورة, الوصف, الحالة, ملاحظة, ظهر_ح3]
+const cast = [
+  ['VEX','pvpman33224','033','c_vex','لاعب PvP مبيعرفش يخسر؛ رغم منافسته لريكسا، أنقذها في آخر لحظة.','alive','نجا في الغرفة 2 · يبحث عن الجاسوس', false],
+  ['عمر','Itsrealzolo','034','c_omar','أعز صاحب لـVEX، بدأ يحس إن الخطر الحقيقي بقى جوه فريقهم.','alive','نجا في الغرفة 5', false],
+  ['موح','minapk56','056','c_moh','الجوكر بتاع الجروب… النجاة التالتة خلته أهدى وأكتر حذر.','alive','نجا في الغرفة 3 مع فويد', false],
+  ['ترو','RoyalShoot1234','078','c_true','بارد وحاسم: شايف إن النجاة مالهاش مكان للضعف.','alive','نجا في الغرفة 5', false],
+  ['فويد','Ez_gaming1285','012','c_void','الأصغر سناً، بس اتخطف معاه كارت دخول ونجا في الغرفة 3.','alive','نجا في الغرفة 3 مع موح', false],
+  ['ليث','ibraheemyoutuber','019','c_laith','واجه حازم بغضب على غدره بعلي، وأكد إن الخصم الجاي جواهم.','alive','نجا في الغرفة 5', false],
+  ['أسامة','osamaGXDgaming_1','044','c_osama','منظّم الشلة — سحب كارت الغرفة 1 وشكوكه حول الجاسوس زادت.','alive','نجا في الغرفة 1', false],
+  ['لايتنينج','mandola41','041','c_lightning','لقي رسالة الأدمن تحت مخدته… وفي آخر الحلقة سمع الخاين بنفسه!','alive','نجا في الغرفة 2 · كشف المؤامرة', false],
+  ['حسن','jack_100121','027','c_hassan','من الأسرع في دخول القاعات مع فريق الغرفة الأولى.','alive','نجا في الغرفة 1', false],
+  ['عمر E','omares1234','061','c_omare','هادئ وحذر، وعدّى غرف النجاة بنجاح.','alive','نجا في الغرفة 2', false],
+  ['عمر G','omar_ghost051','093','c_omarg','نجا في الغرفة 2 وكان شاهد على سقوط اللي اتقفلت عليهم الأبواب.','alive','نجا في الغرفة 2', false],
+  ['ريكسا','Rexha649','099','c_rexha','منافسة VEX الأشرس؛ وقعت وهي مصابة ونجاها VEX قبل 0:00 بثواني.','alive','نجت في الغرفة 2 · جديدة ح3', true],
+  ['حيدر','HaiderFive_XD','005','c_haider','القائد الهادي؛ اعترض بشدة على قسوة ماجد وقفلته للباب.','alive','نجا في الغرفة 4 · جديد ح3', true],
+  ['ماجد','majed_gamer100','100','c_majed','تراي هارد بيلعب لنفسه وبس؛ ساب سنافيرو ورا الباب المقفول.','alive','نجا في الغرفة 4 (خيانة) · جديد ح3', true],
+  ['حازم','hazem2013ppk','091','c_hazem','اتّهم لايتنينج في العنبر، وبعدها زقّ علي برا الغرفة 5 عشان يضمن مكانه.','alive','نجا في الغرفة 5 (خيانة) · جديد ح3', true],
+  ['جمال','Gamal12a5','013','c_gamal','قوي وحاسم؛ ضمن مكانه بدري في الغرفة 1.','alive','نجا في الغرفة 1 · جديد ح3', true],
+  ['سند','sanad234d','023','c_sanad','أول من قفل على فريقه باب الغرفة الأولى وقت الضغط.','alive','نجا في الغرفة 1 · جديد ح3', true],
+  ['تايجر','3AW35','050','c_tiger','سريع وقاسي لما الأمر يخص البقاء؛ لحق الغرفة الأولى.','alive','نجا في الغرفة 1 · جديد ح3', true],
+  ['يامن','itoshi_yamen12','017','c_yamen','دايماً متحمس وكأنه في أنمي، ونجا في الغرفة 1.','alive','نجا في الغرفة 1 · جديد ح3', true],
+  ['تيوب','TubeGaming1221','072','c_tube','أكتر واحد محظوظ في السيرفر؛ لقي أول بطاقة دخول ودخل غرفة 1.','alive','نجا في الغرفة 1 · جديد ح3', true],
+  ['سنافيرو','sasa1refooo2020','021','c_snafiro','طيب وخدوم… اتكعبل في الساحة وخدعه ماجد بقفل باب الغرفة 4.','dead','اتمسح في اللعبة 3 (غرف النجاة)', true],
+  ['علي','alimohamedaliaaa','007','c_ali','كان بيساعد الكل حتى اللحظة الأخيرة، وحازم زقّه برا الغرفة 5.','dead','اتمسح في اللعبة 3 (غرف النجاة)', true],
+  ['إحسان','ehsan_781','064','c_ehsan','كانت بتثق في الكل؛ وقفت جنب علي بعد ما اتقفل الباب واتمسحت معاه.','dead','اتمسح في اللعبة 3 (غرف النجاة)', true],
+  ['كارما','karmaa63','063','c_karma','غرفة 3 اتقفلت قدامها وملحقتش تدخل قبل انتهاء الوقت.','dead','اتمسح في اللعبة 3 (غرف النجاة)', true],
+  ['آيتن','Ayten4571','045','c_ayten','كانت دايماً بتلاحظ التفاصيل… ولمحت الجاسوس قبل التطهير بلحظة!','dead','اتمسح في اللعبة 3 (كشفت طرف خيط)', true],
+  ['حمزة','HamzaFiras2','088','c_hamza','كان ساكت وبيراقب كل حاجة في المتاهة.','dead','اتمسح في اللعبة 2 (المتاهة)', false],
+  ['اللاعب 067','NPC','067','c_p067','راجل طيب، إدّى موح آخر حتة عيش… وبعدين إدّاه مكانه.','dead','اتمسح في اللعبة 1 (آخر نور)', false],
+];
+const LABEL = {alive:'عايش', dead:'اتمسح'};
+
+const stills = [
+  {ep:'3', big:true, img:'s3_wall.jpg', cap:'جدار الـ 100 لاعب بعد تصفية 58 ← 35', tag:'ح3 · جدار الشاشات'},
+  {ep:'3', img:'s3_purge.jpg', cap:'انتهاء العد التنازلي 0:00 وأشعة التطهير الحمراء', tag:'ح3 · التصفية'},
+  {ep:'3', img:'s3_confront.jpg', cap:'مواجهة VEX (033) وريكسا (099) وسط الساحة', tag:'ح3 · المواجهة'},
+  {ep:'3', img:'s3_rooms.jpg', cap:'البوابات الخمس في قاعات غرف النجاة', tag:'ح3 · الساحة'},
+  {ep:'3', img:'s3_betrayal.jpg', cap:'ماجد (100) بيقفل الغرفة 4 في وش سنافيرو', tag:'ح3 · الخيانة'},
+  {ep:'3', img:'s3_traitor.jpg', cap:'الشبح المقنّع قدام الأدمن في المشهد الأخير', tag:'ح3 · الجاسوس'},
+  {ep:'2', img:'s2_wall.jpg', cap:'الأدمن بيعلن قواعد اللعبة التانية قدام الجدار', tag:'ح2 · الأدمن'},
+  {ep:'2', img:'s2_maze.jpg', cap:'برج الجرس ومتاهة الحوائط المتحركة', tag:'ح2 · المتاهة'},
+  {ep:'2', img:'s2_bell.jpg', cap:'ضربة الجرس 5/10 والسباق ضد الوقت', tag:'ح2 · الجرس'},
+  {ep:'2', img:'s2_note.jpg', cap:'ورقة "شكراً على المساعدة… الأدمن"', tag:'ح2 · الورقة'},
+  {ep:'1', img:'s_moh.jpg', cap:'موح (056) منهار بعد تضحية اللاعب 067', tag:'ح1 · آخر نور'},
+  {ep:'1', img:'s_game.jpg', cap:'البلاط المنوّر فوق الفراغ في اللعبة الأولى', tag:'ح1 · آخر نور'},
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// Render Safe Rooms Game 3 Breakdown
+document.getElementById('rooms-grid').innerHTML = roomsEp3.map(r => `
+  <article class="room-card${r.purged ? ' purged' : ''}">
+    <div class="room-top">
+      <h3 class="room-name">${esc(r.name)}</h3>
+      <span class="room-cap">${esc(r.cap)}</span>
+    </div>
+    <p class="room-desc">${esc(r.desc)}</p>
+    <div class="room-chips">${r.members.map(([nm, num]) => `<span class="chip"><b>${esc(num)}</b>${esc(nm)}</span>`).join('')}</div>
+    <div class="room-note">${esc(r.note)}</div>
+  </article>`).join('');
+
+// Render Episodes Grid
+let epHtml = '';
+for (let n = 1; n <= TOTAL; n++) {
+  const e = episodes[n - 1], link = EPISODE_LINKS[n];
+  const cls = n === 3 ? 'latest' : link ? 'out' : e ? 'next' : 'locked';
+  const title = e ? e[0] : '؟؟؟', game = e ? e[1] : 'لعبة سرية لم تبدأ بعد';
+  const cnt = e ? e[2] : '';
+  const st = link ? (n === 3 ? '▶ شاهد الحلقة الجديدة' : '▶ شاهد على يوتيوب') : e ? 'قريبًا على القناة' : 'مقفولة';
+  const inner = `<span class="n">${String(n).padStart(2, '0')}</span><h3>${esc(title)}</h3><span class="game">${esc(game)}</span>${cnt ? `<span class="ep-count">${esc(cnt)}</span>` : ''}<span class="st">${st}</span>`;
+  epHtml += `<li class="ep ${cls}">${link ? `<a href="${esc(link)}" data-play-ep="${n}">${inner}</a>` : inner}</li>`;
+}
+document.getElementById('eps').innerHTML = epHtml;
+
+// Render Cast with Search + Filters
+function card([name, user, num, img, line, state, note, isNew]) {
+  const pic = img ? `<img src="img/${img}.jpg" alt="${esc(name)}، رقم ${num}" loading="lazy">` : `<span class="q" aria-hidden="true">؟</span>`;
+  return `<li class="card s-${state}${isNew ? ' s-new' : ''}" data-state="${state}">
+    <div class="pic">${pic}<span class="status">${LABEL[state]}</span><span class="tag">${esc(num)}</span></div>
+    <div class="txt"><h3>${esc(name)}</h3><p class="user">@${esc(user)}</p><p>${esc(line)}</p>${note ? `<p class="fate">${esc(note)}</p>` : ''}</div>
+  </li>`;
+}
+const adminCard = `<li class="card admin" data-state="admin">
+  <div class="pic"><img src="img/s_admin.jpg" alt="الأدمن بالتاج الذهبي" loading="lazy"><span class="tag">000</span></div>
+  <div class="txt"><h3>الأدمن</h3><p class="user">@??????</p><p>العقل المدبر ورا جدار الشاشات… ومعاه خاين وسط الناجين الـ 35.</p><p class="fate" style="color:#ff9494">لم يُكشف حتى الآن</p></div>
+</li>`;
+
+const listEl = document.getElementById('castlist');
+const searchEl = document.getElementById('cast-search');
+let castFilter = 'all';
+function renderCast() {
+  const q = searchEl.value.trim().toLowerCase();
+  const rows = cast.filter(c => {
+    const matchF = castFilter === 'all' ? true : castFilter === 'new3' ? c[7] : c[5] === castFilter;
+    const matchQ = !q || c[0].toLowerCase().includes(q) || c[1].toLowerCase().includes(q) || c[2].includes(q) || c[4].toLowerCase().includes(q);
+    return matchF && matchQ;
+  });
+  listEl.innerHTML = rows.map(card).join('') + (castFilter === 'all' && !q ? adminCard : '');
+}
+const counts = cast.reduce((m, c) => { m[c[5]] = (m[c[5]] || 0) + 1; if (c[7]) m.new3 = (m.new3 || 0) + 1; return m; }, {});
+const fdefs = [
+  ['all', 'الكل', cast.length],
+  ['alive', 'عايش', counts.alive || 0],
+  ['dead', 'اتمسح', counts.dead || 0],
+  ['new3', 'جدد الحلقة التالتة', counts.new3 || 0],
+];
+const fbox = document.getElementById('filters');
+fbox.innerHTML = fdefs.map(([k, l, n]) => `<button type="button" data-f="${k}" aria-pressed="${k === 'all'}">${l}<b>${n}</b></button>`).join('');
+fbox.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  castFilter = b.dataset.f;
+  fbox.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  renderCast();
+});
+searchEl.addEventListener('input', renderCast);
+renderCast();
+
+// Render Filterable Gallery + Lightbox
+const gbox = document.getElementById('gallery');
+const gfbox = document.getElementById('gallery-filters');
+let galFilter = 'all';
+const gdefs = [['all', 'كل اللقطات', stills.length], ['3', 'الحلقة 3', stills.filter(s => s.ep === '3').length], ['2', 'الحلقة 2', stills.filter(s => s.ep === '2').length], ['1', 'الحلقة 1', stills.filter(s => s.ep === '1').length]];
+gfbox.innerHTML = gdefs.map(([k, l, n]) => `<button type="button" data-gf="${k}" aria-pressed="${k === 'all'}">${l}<b>${n}</b></button>`).join('');
+function renderGallery() {
+  const items = stills.filter(s => galFilter === 'all' || s.ep === galFilter);
+  gbox.innerHTML = items.map((s, idx) => `
+    <figure class="${s.big && galFilter === 'all' ? 'big' : (idx === 0 && galFilter !== 'all' ? 'big' : '')}" data-img="img/${s.img}" data-cap="${esc(s.cap)}">
+      <img src="img/${s.img}" alt="${esc(s.cap)}" loading="lazy">
+      <figcaption><span>${esc(s.cap)}</span><i>${esc(s.tag)}</i></figcaption>
+    </figure>`).join('');
+}
+gfbox.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  galFilter = b.dataset.gf;
+  gfbox.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  renderGallery();
+});
+renderGallery();
+
+// Cinema Player Modal
+const vModal = document.getElementById('video-modal');
+const vBody = document.getElementById('video-modal-body');
+const vTitle = document.getElementById('video-modal-title');
+const vExt = document.getElementById('video-modal-ext');
+function openVideoModal(ep) {
+  const titles = {1:'الحلقة 1: آخر نور', 2:'الحلقة 2: المتاهة', 3:'الحلقة 3: غرف النجاة'};
+  const id = EPISODE_IDS[ep], url = EPISODE_LINKS[ep];
+  vTitle.textContent = titles[ep] || 'السيرفر الأخير';
+  vExt.href = url;
+  vBody.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  vModal.classList.add('open');
+}
+function closeVideoModal() { vModal.classList.remove('open'); vBody.innerHTML = ''; }
+document.getElementById('ep3-modal-btn').addEventListener('click', () => openVideoModal(3));
+document.getElementById('thumb-play').addEventListener('click', () => openVideoModal(3));
+document.getElementById('thumb-play').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openVideoModal(3); } });
+document.getElementById('video-modal-close').addEventListener('click', closeVideoModal);
+vModal.addEventListener('click', e => { if (e.target === vModal) closeVideoModal(); });
+document.getElementById('eps').addEventListener('click', e => {
+  const a = e.target.closest('a[data-play-ep]');
+  if (!a) return;
+  e.preventDefault();
+  openVideoModal(Number(a.dataset.playEp));
+});
+
+// Image Lightbox
+const iModal = document.getElementById('img-modal');
+const iEl = document.getElementById('img-modal-el');
+const iTitle = document.getElementById('img-modal-title');
+gbox.addEventListener('click', e => {
+  const fig = e.target.closest('figure'); if (!fig) return;
+  iEl.src = fig.dataset.img;
+  iEl.alt = fig.dataset.cap;
+  iTitle.textContent = fig.dataset.cap;
+  iModal.classList.add('open');
+});
+function closeImgModal() { iModal.classList.remove('open'); iEl.src = ''; }
+document.getElementById('img-modal-close').addEventListener('click', closeImgModal);
+iModal.addEventListener('click', e => { if (e.target === iModal) closeImgModal(); });
+addEventListener('keydown', e => { if (e.key === 'Escape') { closeVideoModal(); closeImgModal(); } });
+
+// External links
+document.getElementById('ep1-watch').href = EPISODE_LINKS[1];
+document.getElementById('ep2-watch').href = EPISODE_LINKS[2];
+document.getElementById('ep3-watch').href = EPISODE_LINKS[3];
+document.getElementById('yt-credit').href = EPISODE_LINKS[3];
+
+// Counter: dramatic drop 100 -> 35
+const alive = document.getElementById('alive');
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) { alive.textContent = PLAYERS_LEFT; }
+else {
+  let v = 100;
+  const tick = () => {
+    if (v > PLAYERS_LEFT) {
+      const step = v > 70 ? 2 : v > 50 ? 2 : 1;
+      v = Math.max(PLAYERS_LEFT, v - step);
+      alive.textContent = v;
+      setTimeout(tick, 35 + Math.random() * 55);
+    }
+  };
+  setTimeout(tick, 750);
+}
+</script>
+</body>
+</html>
